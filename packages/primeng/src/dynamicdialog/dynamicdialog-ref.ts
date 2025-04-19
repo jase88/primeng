@@ -4,13 +4,13 @@ import { Output, EventEmitter, Type } from '@angular/core';
  * Dynamic Dialog instance.
  * @group Components
  */
-export class DynamicDialogRef<ComponentType = any> {
+export class DynamicDialogRef<ComponentType = any, DynamicDialogResult = any> {
     constructor() {}
     /**
      * Closes dialog.
      * @group Method
      */
-    close(result?: any) {
+    close(result?: DynamicDialogResult) {
         this._onClose.next(result);
 
         setTimeout(() => {
@@ -65,19 +65,19 @@ export class DynamicDialogRef<ComponentType = any> {
         this._onMaximize.next(value);
     }
 
-    private readonly _onClose = new Subject<any>();
+    private readonly _onClose = new Subject<DynamicDialogResult>();
     /**
      * Event triggered on dialog is closed.
      * @group Events
      */
-    onClose: Observable<any> = this._onClose.asObservable();
+    onClose: Observable<DynamicDialogResult> = this._onClose.asObservable();
 
-    private readonly _onDestroy = new Subject<any>();
+    private readonly _onDestroy = new Subject<null>();
     /**
      * Event triggered on dialog instance is destroyed.
      * @group Events
      */
-    onDestroy: Observable<any> = this._onDestroy.asObservable();
+    onDestroy: Observable<null> = this._onDestroy.asObservable();
 
     private readonly _onDragStart = new Subject<any>();
     /**
@@ -95,21 +95,21 @@ export class DynamicDialogRef<ComponentType = any> {
      */
     onDragEnd: Observable<any> = this._onDragEnd.asObservable();
 
-    private readonly _onResizeInit = new Subject<any>();
+    private readonly _onResizeInit = new Subject<MouseEvent>();
     /**
      * Event triggered on resize start.
      * @param {MouseEvent} event - Mouse event.
      * @group Events
      */
-    onResizeInit: Observable<any> = this._onResizeInit.asObservable();
+    onResizeInit: Observable<MouseEvent> = this._onResizeInit.asObservable();
 
-    private readonly _onResizeEnd = new Subject<any>();
+    private readonly _onResizeEnd = new Subject<MouseEvent>();
     /**
      * Event triggered on resize end.
      * @param {MouseEvent} event - Mouse event.
      * @group Events
      */
-    onResizeEnd: Observable<any> = this._onResizeEnd.asObservable();
+    onResizeEnd: Observable<MouseEvent> = this._onResizeEnd.asObservable();
 
     private readonly _onMaximize = new Subject<any>();
     /**
